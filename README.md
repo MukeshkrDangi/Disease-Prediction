@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ROBO-DOC
 Healthcare chatbot to predict Diseases based on patient symptoms.
 <br>
@@ -20,3 +21,6 @@ python app.py
 
 Medical DataSet available !!
 ---- 
+=======
+# Disease-Prediction
+>>>>>>> 4da710a7806c9d2628af269aaac7fe70f9f8261b
