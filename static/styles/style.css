@@ -1,11 +1,14 @@
 :root {
-    --body-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    --msger-bg: #fff;
-    --border: 2px solid #ddd;
-    --left-msg-bg: #ececec;
-    --right-msg-bg: #579ffb;
-  }
-  
+
+  --body-bg: linear-gradient(135deg, #B05BFF 0%, #c3cfe2 100%);
+  --msger-bg: linear-gradient(135deg, #ffffff 0%, #f1f1f1 100%);
+  --border: 2px solid #ddd;
+--left-msg-bg: linear-gradient(135deg, #E9E9E9 0%, #EEE9EA 100%);
+
+  --right-msg-bg: linear-gradient(135deg, #B05BFF 0%, #417fd8 100%);
+}
+
+
   html {
     box-sizing: border-box;
   }
@@ -19,11 +22,12 @@
   }
   
   body {
+
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: var(--body-bg);
+    background-image: url("test2.jpg");
     font-family: Helvetica, sans-serif;
   }
   
@@ -37,7 +41,7 @@
     height: calc(100% - 50px);
     border: var(--border);
     border-radius: 5px;
-    background: var(--msger-bg);
+    background: var("test2.jpg");
     box-shadow: 0 15px 15px -5px rgba(0, 0, 0, 0.2);
   }
   
@@ -47,7 +51,8 @@
     justify-content: space-between;
     padding: 10px;
     text-align: center;
-    border-bottom: var(--border);
+    border-bottom: 2px solid #000; /* Adjust the color and thickness as needed */
+
     background: #eee;
     color: #666;
   }
@@ -64,7 +69,7 @@
     background: #ddd;
   }
   .msger-chat::-webkit-scrollbar-thumb {
-    background: #bdbdbd;
+    background: #F0F0F0;
   }
   .msg {
     display: flex;
@@ -131,9 +136,9 @@
     font-size: 1em;
   }
   .msger-input {
-    flex: 1;
-    background: #ddd;
-  }
+  flex: 1;
+  background-color: #ddd; /* Light gray background */
+}
   .msger-send-btn {
     margin-left: 10px;
     background: rgb(0, 196, 65);
@@ -147,6 +152,9 @@
   }
   
   .msger-chat {
-    background-color: #fcfcfe;
-    background-image: url("test.jpg")
-  }
+  background-color: #fcfcfe;
+  background-image: url("test.jpg");
+  background-size: cover; /* Ensures the background image covers the entire container */
+  background-position: center; /* Centers the background image */
+  background-repeat: no-repeat; /* Prevents the background image from repeating */
+}

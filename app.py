@@ -302,10 +302,10 @@ def calc_condition(exp, days):
             sum = sum + severityDictionary[item]
     if ((sum * days) / (len(exp)) > 13):
         return 1
-        print("You should take the consultation from doctor. ")
+        print("आपको डॉक्टर से सलाह लेनी चाहिए You should take the consultation from doctor/. ")
     else:
         return 0
-        print("It might not be that bad but you should take precautions.")
+        print("हो सकता है कि यह उतना बुरा न हो लेकिन आपको सावधानी बरतनी चाहिए It might not be that bad but you should take precautions.")
 
 
 # print possible symptoms
@@ -336,32 +336,32 @@ def get_bot_response():
             gender = session["gender"]
             session.clear()
             if s == "q":
-                "Thank you for using ower web site Mr/Ms " + name
+                "Thank you for using Rec-ChatBot Mr/Ms Rec-ChatBot का उपयोग करने के लिए धन्यवाद श्रीमान/सुश्री " + name
             else:
                 session["step"] = "FS"
                 session["name"] = name
                 session["age"] = age
                 session["gender"] = gender
     if s.upper() == "OK":
-        return "What is your name ?"
+        return "What is your name ?/आपका क्या नाम है?"
     if 'name' not in session and 'step' not in session:
         session['name'] = s
         session['step'] = "age"
-        return "How old are you? "
+        return "How old are you? /आपकी आयु कितनी है?"
     if session["step"] == "age":
         session["age"] = int(s)
         session["step"] = "gender"
-        return "Can you specify your gender ?"
+        return "Can you specify your gender ?क्या आप अपना लिंग बता सकते हैं?"
     if session["step"] == "gender":
         session["gender"] = s
         session["step"] = "Depart"
     if session['step'] == "Depart":
         session['step'] = "BFS"
         return "Well, Hello again Mr/Ms " + session[
-            "name"] + ", now I will be asking some few questions about your symptoms to see what you should do. Tap S to start diagnostic!"
+            "name"] + ", now I will be asking some few questions about your symptoms to see what you should do. Tap S to start diagnostic!/अब मैं आपके लक्षणों के बारे में कुछ प्रश्न पूछूंगा कि आपको क्या करना चाहिए। डायग्नोस्टिक प्रारंभ करने के लिए S टैप करें!"
     if session['step'] == "BFS":
         session['step'] = "FS"  # first symp
-        return "Can you precise your main symptom Mr/Ms " + session["name"] + " ?"
+        return "Can you precise your main symptom Mr/Ms /क्या आप अपना मुख्य लक्षण स्पष्ट कर सकते हैं श्रीमान/सुश्री? " + session["name"] + " ?"
     if session['step'] == "FS":
         sym1 = s
         sym1 = preprocess(sym1)
@@ -375,7 +375,7 @@ def get_bot_response():
             if s != 0:
                 return s
         else:
-            return "You are probably facing another symptom, if so, can you specify it?"
+            return "You are probably facing another symptom, if so, can you specify it?/आप संभवतः किसी अन्य लक्षण का सामना कर रहे हैं, यदि हां, तो क्या आप इसे निर्दिष्ट कर सकते हैं?"
     if session['step'] == "RS1":
         temp = session['FSY']
         psym1 = temp[2]
@@ -383,7 +383,7 @@ def get_bot_response():
         temp[2] = psym1
         session['FSY'] = temp
         session['step'] = 'SS'
-        return "You are probably facing another symptom, if so, can you specify it?"
+        return "You are probably facing another symptom, if so, can you specify it?/आप संभवतः किसी अन्य लक्षण का सामना कर रहे हैं, यदि हां, तो क्या आप इसे निर्दिष्ट कर सकते हैं?"
     if session['step'] == "SS":
         sym2 = s
         sym2 = preprocess(sym2)
@@ -598,18 +598,18 @@ def get_bot_response():
                        "stop the conversation "
             session['step'] = "Description"
             session["disease"] = result[0]
-            return "Well Mr/Ms " + session["name"] + ", you may have " + result[
-                0] + ". Tap D to get a description of the disease ."
+            return "Well Mr/Ms  " + session["name"] + ", you may have " + result[
+                0] + ". Tap D to get a description of the disease बीमारी का विवरण पाने के लिए D पर टैप करें."
         else:
             session['step'] = "Q_C"  # test if user want to continue the conversation or not
-            return "can you specify more what you feel or Tap q to stop the conversation"
+            return "can you specify more what you feel or Tap q to stop the conversation /क्या आप और अधिक बता सकते हैं कि आप क्या महसूस करते हैं या बातचीत रोकने के लिए q टैप करें"
     if session['step'] == "Description":
         y = {"Name": session["name"], "Age": session["age"], "Gender": session["gender"], "Disease": session["disease"],
              "Sympts": session["all"]}
         write_json(y)
         session['step'] = "Severity"
         if session["disease"] in description_list.keys():
-            return description_list[session["disease"]] + " \n <br>  How many days have you had symptoms?"
+            return description_list[session["disease"]] + " \n <br>  How many days have you had symptoms?/आपको कितने दिनों से लक्षण हैं?"
         else:
             if " " in session["disease"]:
                 session["disease"] = session["disease"].replace(" ", "_")
@@ -619,7 +619,7 @@ def get_bot_response():
         if calc_condition(session["all"], int(s)) == 1:
             return "you should take the consultation from doctor <br> Tap q to exit"
         else:
-            msg = 'Nothing to worry about, but you should take the following precautions :<br> '
+            msg = 'Nothing to worry about, but you should take the following precautions /चिंता की कोई बात नहीं, लेकिन आपको निम्नलिखित सावधानियां बरतनी चाहिए:<br> '
             i = 1
             for e in precautionDictionary[session["disease"]]:
                 msg += '\n ' + str(i) + ' - ' + e + '<br>'
@@ -628,7 +628,7 @@ def get_bot_response():
             return msg
     if session['step'] == "FINAL":
         session['step'] = "BYE"
-        return "Your diagnosis was perfectly completed. Do you need another medical consultation (yes or no)? "
+        return "Your diagnosis was perfectly completed. Do you need another medical consultation /आपका निदान पूरी तरह से पूरा हो गया। क्या आपको किसी अन्य चिकित्सीय परामर्श की आवश्यकता है?(yes or no)? "
     if session['step'] == "BYE":
         name = session["name"]
         age = session["age"]
@@ -639,9 +639,9 @@ def get_bot_response():
             session["name"] = name
             session["age"] = age
             session['step'] = "FS"
-            return "HELLO again Mr/Ms " + session["name"] + " Please tell me your main symptom. "
+            return "HELLO again Mr/Ms " + session["name"] + " Please tell me your main symptom /कृपया मुझे अपना मुख्य लक्षण बतायें. "
         else:
-            return "THANKS Mr/Ms " + name + " for using me for more information please contact <b> +21266666666</b>"
+            return "THANKS Mr/Ms " + name + " for using me for more information please contact /धन्यवाद श्रीमान/सुश्री अधिक जानकारी के लिए कृपया मुझसे संपर्क करें <b> +918340743759</b>"
 
 
 if __name__ == "__main__":
@@ -654,3 +654,58 @@ if __name__ == "__main__":
     # chat_sp()
     app.secret_key = str(ran)
     app.run()
+
+
+from google.cloud import texttospeech
+
+# Initialize a Text-to-Speech client
+client = texttospeech.TextToSpeechClient()
+
+@app.route("/get")
+def get_bot_response():
+    s = request.args.get('msg')
+    if "step" in session:
+        if session["step"] == "Q_C":
+            name = session["name"]
+            age = session["age"]
+            gender = session["gender"]
+            session.clear()
+            if s == "q":
+                return "Thank you for using Rec-ChatBot, Mr/Ms RecChatBoat का उपयोग करने के लिए धन्यवाद, श्रीमान/सुश्री" + name
+            else:
+                session["step"] = "FS"
+                session["name"] = name
+                session["age"] = age
+                session["gender"] = gender
+
+    # Other logic for your bot...
+
+    # Here, I'm assuming `response` contains the text response to be converted to speech
+    response = "Your text response goes here/आपकी टेक्स्ट प्रतिक्रिया यहां जाती है"
+
+    # Call the function to synthesize speech
+    audio_response = synthesize_text(response)
+
+    # Return the speech audio
+    return Response(audio_response.audio_content, mimetype='audio/mpeg')
+
+
+def synthesize_text(text):
+    """Synthesizes speech from the input text."""
+    input_text = texttospeech.SynthesisInput(text=text)
+
+    # Note: the voice can be configured by specifying the language_code and name fields
+    # More details: https://cloud.google.com/text-to-speech/docs/voices
+    voice = texttospeech.VoiceSelectionParams(
+        language_code="en-US", name="en-US-Wavenet-F"
+    )
+
+    audio_config = texttospeech.AudioConfig(
+        audio_encoding=texttospeech.AudioEncoding.MP3
+    )
+
+    response = client.synthesize_speech(
+        input=input_text, voice=voice, audio_config=audio_config
+    )
+
+    return response
